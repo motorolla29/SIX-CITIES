@@ -1,8 +1,8 @@
 import React from "react";
-import { arrayOf, object } from "prop-types";
+import { arrayOf, func, object } from "prop-types";
 import CardList from "../../card-list/card-list";
 
-const MainPage = ({ data }) => {
+const MainPage = ({ data, onCityLinkClick }) => {
   return (
     <>
       <div style={{ display: "none" }}>
@@ -67,32 +67,55 @@ const MainPage = ({ data }) => {
             <section className="locations container">
               <ul className="locations__list tabs__list">
                 <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
+                  <a
+                    onClick={onCityLinkClick}
+                    className="locations__item-link tabs__item"
+                    href="#"
+                  >
                     <span>Paris</span>
                   </a>
                 </li>
                 <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
+                  <a
+                    onClick={onCityLinkClick}
+                    className="locations__item-link tabs__item"
+                    href="#"
+                  >
                     <span>Cologne</span>
                   </a>
                 </li>
                 <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
+                  <a
+                    onClick={onCityLinkClick}
+                    className="locations__item-link tabs__item"
+                    href="#"
+                  >
                     <span>Brussels</span>
                   </a>
                 </li>
                 <li className="locations__item">
-                  <a className="locations__item-link tabs__item tabs__item--active">
+                  <a
+                    onClick={onCityLinkClick}
+                    className="locations__item-link tabs__item tabs__item--active"
+                  >
                     <span>Amsterdam</span>
                   </a>
                 </li>
                 <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
+                  <a
+                    onClick={onCityLinkClick}
+                    className="locations__item-link tabs__item"
+                    href="#"
+                  >
                     <span>Hamburg</span>
                   </a>
                 </li>
                 <li className="locations__item">
-                  <a className="locations__item-link tabs__item" href="#">
+                  <a
+                    onClick={onCityLinkClick}
+                    className="locations__item-link tabs__item"
+                    href="#"
+                  >
                     <span>Dusseldorf</span>
                   </a>
                 </li>
@@ -145,6 +168,7 @@ const MainPage = ({ data }) => {
 
 MainPage.propTypes = {
   data: arrayOf(object).isRequired,
+  onCityLinkClick: func,
 };
 
 export default MainPage;

@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./components/app/app";
 
-const data = [
+export const data = [
   {
     id: 1,
     title: "Beautiful & luxurious apartment at great location",
