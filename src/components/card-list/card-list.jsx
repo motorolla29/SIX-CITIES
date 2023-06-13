@@ -1,24 +1,26 @@
-import React from "react";
-import { arrayOf, shape, string, number } from "prop-types";
+import React, { useState } from "react";
+import { arrayOf, shape, string, number, object } from "prop-types";
 import Card from "../card/card";
 
-const CardList = ({ data }) => {
+const CardList = ({ offersData }) => {
+  const [activeOffer, setActiveOffer] = useState({ activeOfferId: null });
+
   return (
     <div className="cities__places-list places__list tabs__content">
-      {data.map(({ id, title }) => (
-        <Card key={id} title={title} />
+      {offersData.map((item) => (
+        <Card
+          key={item.id}
+          offer={item}
+          onMouseEnter={() => setActiveOffer({ activeOfferId: item.id })}
+          onMouseLeave={() => setActiveOffer({ activeOfferId: null })}
+        />
       ))}
     </div>
   );
 };
 
 CardList.propTypes = {
-  data: arrayOf(
-    shape({
-      title: string.isRequired,
-      id: number,
-    })
-  ).isRequired,
+  offersData: arrayOf(object).isRequired,
 };
 
 export default CardList;

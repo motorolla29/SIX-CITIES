@@ -2,7 +2,7 @@ import React from "react";
 import { arrayOf, func, object } from "prop-types";
 import CardList from "../../card-list/card-list";
 
-const MainPage = ({ data, onCityLinkClick }) => {
+const MainPage = ({ offersData, onCityLinkClick }) => {
   return (
     <>
       <div style={{ display: "none" }}>
@@ -153,7 +153,7 @@ const MainPage = ({ data, onCityLinkClick }) => {
                     </li>
                   </ul>
                 </form>
-                <CardList data={data} />
+                <CardList offersData={offersData} />
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map"></section>
@@ -167,7 +167,7 @@ const MainPage = ({ data, onCityLinkClick }) => {
 };
 
 MainPage.propTypes = {
-  data: arrayOf(object).isRequired,
+  offersData: arrayOf(object).isRequired,
   onCityLinkClick: func,
 };
 

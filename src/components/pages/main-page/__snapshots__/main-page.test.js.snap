@@ -266,6 +266,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
             >
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="place-card__mark"
@@ -284,7 +286,7 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="https://picsum.photos/260/201"
                       width="260"
                     />
                   </a>
@@ -301,7 +303,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <b
                         className="place-card__price-value"
                       >
-                        €120
+                        €
+                        120
                       </b>
                       <span
                         className="place-card__price-text"
@@ -345,7 +348,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <span
                         className="visually-hidden"
                       >
-                        Rating
+                        Rating: 
+                        3.2
                       </span>
                     </div>
                   </div>
@@ -355,18 +359,20 @@ exports[`Main page correctly renders after relaunch 1`] = `
                     <a
                       href="#"
                     >
-                      Beautiful & luxurious apartment at great location
+                      Beautiful & luxurious studio at great location
                     </a>
                   </h2>
                   <p
                     className="place-card__type"
                   >
-                    Apartment
+                    Private room
                   </p>
                 </div>
               </article>
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="place-card__mark"
@@ -385,7 +391,7 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="https://picsum.photos/260/199"
                       width="260"
                     />
                   </a>
@@ -402,7 +408,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <b
                         className="place-card__price-value"
                       >
-                        €120
+                        €
+                        220
                       </b>
                       <span
                         className="place-card__price-text"
@@ -446,7 +453,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <span
                         className="visually-hidden"
                       >
-                        Rating
+                        Rating: 
+                        2.1
                       </span>
                     </div>
                   </div>
@@ -462,12 +470,14 @@ exports[`Main page correctly renders after relaunch 1`] = `
                   <p
                     className="place-card__type"
                   >
-                    Apartment
+                    Single Room
                   </p>
                 </div>
               </article>
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="place-card__mark"
@@ -486,7 +496,7 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="https://picsum.photos/260/198"
                       width="260"
                     />
                   </a>
@@ -503,7 +513,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <b
                         className="place-card__price-value"
                       >
-                        €120
+                        €
+                        400
                       </b>
                       <span
                         className="place-card__price-text"
@@ -547,7 +558,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <span
                         className="visually-hidden"
                       >
-                        Rating
+                        Rating: 
+                        4.7
                       </span>
                     </div>
                   </div>
@@ -557,18 +569,20 @@ exports[`Main page correctly renders after relaunch 1`] = `
                     <a
                       href="#"
                     >
-                      Canal View Prinsengracht
+                      Nice, cozy, warm big bed house
                     </a>
                   </h2>
                   <p
                     className="place-card__type"
                   >
-                    Apartment
+                    House
                   </p>
                 </div>
               </article>
               <article
                 className="cities__place-card place-card"
+                onMouseEnter={[Function]}
+                onMouseLeave={[Function]}
               >
                 <div
                   className="place-card__mark"
@@ -587,7 +601,7 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       alt="Place image"
                       className="place-card__image"
                       height="200"
-                      src="img/apartment-01.jpg"
+                      src="https://picsum.photos/260/203"
                       width="260"
                     />
                   </a>
@@ -604,7 +618,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <b
                         className="place-card__price-value"
                       >
-                        €120
+                        €
+                        155
                       </b>
                       <span
                         className="place-card__price-text"
@@ -648,7 +663,8 @@ exports[`Main page correctly renders after relaunch 1`] = `
                       <span
                         className="visually-hidden"
                       >
-                        Rating
+                        Rating: 
+                        1.5
                       </span>
                     </div>
                   </div>
@@ -658,114 +674,13 @@ exports[`Main page correctly renders after relaunch 1`] = `
                     <a
                       href="#"
                     >
-                      Nice, cozy, warm big bed apartment
+                      Place widh a view in the heart of the city
                     </a>
                   </h2>
                   <p
                     className="place-card__type"
                   >
-                    Apartment
-                  </p>
-                </div>
-              </article>
-              <article
-                className="cities__place-card place-card"
-              >
-                <div
-                  className="place-card__mark"
-                >
-                  <span>
-                    Premium
-                  </span>
-                </div>
-                <div
-                  className="cities__image-wrapper place-card__image-wrapper"
-                >
-                  <a
-                    href="#"
-                  >
-                    <img
-                      alt="Place image"
-                      className="place-card__image"
-                      height="200"
-                      src="img/apartment-01.jpg"
-                      width="260"
-                    />
-                  </a>
-                </div>
-                <div
-                  className="place-card__info"
-                >
-                  <div
-                    className="place-card__price-wrapper"
-                  >
-                    <div
-                      className="place-card__price"
-                    >
-                      <b
-                        className="place-card__price-value"
-                      >
-                        €120
-                      </b>
-                      <span
-                        className="place-card__price-text"
-                      >
-                        / night
-                      </span>
-                    </div>
-                    <button
-                      className="place-card__bookmark-button button"
-                      type="button"
-                    >
-                      <svg
-                        className="place-card__bookmark-icon"
-                        height="19"
-                        width="18"
-                      >
-                        <use
-                          xlinkHref="#icon-bookmark"
-                        />
-                      </svg>
-                      <span
-                        className="visually-hidden"
-                      >
-                        To bookmarks
-                      </span>
-                    </button>
-                  </div>
-                  <div
-                    className="place-card__rating rating"
-                  >
-                    <div
-                      className="place-card__stars rating__stars"
-                    >
-                      <span
-                        style={
-                          {
-                            "width": "93%",
-                          }
-                        }
-                      />
-                      <span
-                        className="visually-hidden"
-                      >
-                        Rating
-                      </span>
-                    </div>
-                  </div>
-                  <h2
-                    className="place-card__name"
-                  >
-                    <a
-                      href="#"
-                    >
-                      Wood and stone place
-                    </a>
-                  </h2>
-                  <p
-                    className="place-card__type"
-                  >
-                    Apartment
+                    Flat
                   </p>
                 </div>
               </article>
