@@ -8,21 +8,21 @@ Enzyme.configure({ adapter: new Adapter() });
 
 it("Hovering over the offer card works correctly", () => {
   const offer = OFFERS_DATA[3];
-  let stateActiveCardId = null;
+  let stateActiveCard = null;
   const card = shallow(
     <Card
       key={offer.id}
       offer={offer}
-      onMouseEnter={() => (stateActiveCardId = offer.id)}
-      onMouseLeave={() => (stateActiveCardId = null)}
+      onMouseEnter={() => (stateActiveCard = offer)}
+      onMouseLeave={() => (stateActiveCard = null)}
     />
   );
 
   card.simulate("mouseenter");
 
-  expect(stateActiveCardId).toEqual(offer.id);
+  expect(stateActiveCard).toEqual(offer);
 
   card.simulate("mouseleave");
 
-  expect(stateActiveCardId).toEqual(null);
+  expect(stateActiveCard).toEqual(null);
 });

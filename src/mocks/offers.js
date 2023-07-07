@@ -37,8 +37,8 @@ export const OFFERS_DATA = [
       "Wi-Fi",
     ],
     address: {
-      lat: 55.23,
-      lng: 4.54,
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
     },
     host: {
       name: "Angelina",
@@ -68,8 +68,8 @@ export const OFFERS_DATA = [
     capacity: 9,
     features: ["Towels"],
     address: {
-      lat: 55.23,
-      lng: 20.54,
+      lat: 52.369553943508,
+      lng: 4.85309666406198,
     },
     host: {
       name: "Oleg",
@@ -103,8 +103,8 @@ export const OFFERS_DATA = [
       "Wi-Fi",
     ],
     address: {
-      lat: 35.23,
-      lng: 50.54,
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
     },
     host: {
       name: "Paul",
@@ -147,8 +147,8 @@ export const OFFERS_DATA = [
       "Wi-Fi",
     ],
     address: {
-      lat: 15.63,
-      lng: 55.54,
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
     },
     host: {
       name: "Oleg Victorovich",

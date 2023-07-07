@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { arrayOf, shape, string, number, object } from "prop-types";
+import { arrayOf, object } from "prop-types";
 import Card from "../card/card";
 
 const CardList = ({ offersData }) => {
-  const [activeOffer, setActiveOffer] = useState({ activeOfferId: null });
+  const [activeOffer, setActiveOffer] = useState(null);
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -11,8 +11,8 @@ const CardList = ({ offersData }) => {
         <Card
           key={item.id}
           offer={item}
-          onMouseEnter={() => setActiveOffer({ activeOfferId: item.id })}
-          onMouseLeave={() => setActiveOffer({ activeOfferId: null })}
+          onMouseEnter={() => setActiveOffer(item)}
+          onMouseLeave={() => setActiveOffer(null)}
         />
       ))}
     </div>
