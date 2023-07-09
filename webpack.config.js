@@ -22,10 +22,16 @@ module.exports = {
           loader: `babel-loader`,
         },
       },
+      {
+        test: /\.css$/,
+        use: {
+          loader: "css-loader",
+        },
+      },
     ],
   },
   resolve: {
-    extensions: [".tsx", ".jsx", ".ts", ".js"],
+    extensions: [".tsx", ".jsx", ".ts", ".js", ".css"],
   },
   devtool: `source-map`,
 };

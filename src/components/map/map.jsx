@@ -1,13 +1,12 @@
-import React, { useRef, useEffect } from 'react';
-import { arrayOf } from 'prop-types';
-import leaflet from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import React, { useRef, useEffect } from "react";
+import { arrayOf } from "prop-types";
+import leaflet from "leaflet";
+import "leaflet/dist/leaflet.css";
 
-import { adPropTypes } from '../../propTypes/ad.js';
-import { cityPropTypes } from '../../propTypes/city.js';
-import { MapPinSetting } from '../../const';
-import useMap from '../../hooks/useMap';
-
+import { adPropTypes } from "../../propTypes/ad.js";
+import { cityPropTypes } from "../../propTypes/city.js";
+import { MapPinSetting } from "../../const";
+import useMap from "../../hooks/useMap";
 
 function Map({ city, ads }) {
   const mapRef = useRef(null);
@@ -17,17 +16,15 @@ function Map({ city, ads }) {
 
   useEffect(() => {
     if (map) {
-      ads.forEach((it) => {
-        const { lat, lng } = it.address;
+      ads.forEach((item) => {
+        const { lat, lng } = item.address;
 
-        leaflet
-          .marker([lat, lng], {icon: defaultIcon})
-          .addTo(map);
+        leaflet.marker([lat, lng], { icon: defaultIcon }).addTo(map);
       });
     }
   }, [map, ads]);
 
-  return <div id="map" style={{ height: '100%' }} ref={mapRef}></div>;
+  return <div id="map" style={{ height: "100%" }} ref={mapRef}></div>;
 }
 
 Map.propTypes = {
