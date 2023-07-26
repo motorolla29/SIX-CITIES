@@ -1,26 +1,49 @@
-import React, { useState } from "react";
-import { arrayOf, object } from "prop-types";
-import Card from "../card/card";
+import React from "react";
+import { connect } from "react-redux";
+import { arrayOf, func, string } from "prop-types";
+import { sortByKey } from "../../util.js";
+import { ActionCreator } from "../../store/action.js";
+import { adPropTypes } from "../../propTypes/ad.js";
+import { CardListNames, componentVariants } from "./settings.js";
+import Card from "../card/card.jsx";
 
-const CardList = ({ ads }) => {
-  const [activeOffer, setActiveOffer] = useState(null);
+function CardList({
+  ads,
+  variant = CardListNames.MAIN_PAGE,
+  changeFocusedAdId,
+}) {
+  const { listClassNameMod } = componentVariants[variant];
 
   return (
-    <div className="cities__places-list places__list tabs__content">
-      {ads.map((item) => (
+    <div className={`${listClassNameMod} places__list`}>
+      {ads.map((it) => (
         <Card
-          key={item.id}
-          offer={item}
-          onMouseEnter={() => setActiveOffer(item)}
-          onMouseLeave={() => setActiveOffer(null)}
+          key={it.id}
+          data={it}
+          variant={variant}
+          onMouseEnter={() => changeFocusedAdId(it.id)}
+          onMouseLeave={() => changeFocusedAdId(null)}
         />
       ))}
     </div>
   );
-};
+}
 
 CardList.propTypes = {
-  ads: arrayOf(object).isRequired,
+  ads: arrayOf(adPropTypes).isRequired,
+  variant: string,
+  changeFocusedAdId: func,
 };
 
-export default CardList;
+const mapStateToProps = (state, ownProps) => ({
+  ads: sortByKey(ownProps.ads, state.adSortingType),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeFocusedAdId(newId) {
+    dispatch(ActionCreator.changeFocusedAdId(newId));
+  },
+});
+
+export { CardList };
+export default connect(mapStateToProps, mapDispatchToProps)(CardList);
