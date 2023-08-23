@@ -2,7 +2,6 @@ import React from "react";
 import { arrayOf } from "prop-types";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppRoute } from "../../const.js";
-import { adPropTypes } from "../../propTypes/ad.js";
 import { reviewPropTypes } from "../../propTypes/review.js";
 import { OFFERS_NEAR_DATA } from "../../mocks/offers-near.js";
 import MainPage from "../pages/main-page/main-page";
@@ -11,7 +10,7 @@ import FavoritesPage from "../pages/favorites-page/favorites-page.jsx";
 import NotFoundPage from "../pages/not-found-page/not-found-page.jsx";
 import OfferPage from "../pages/offer-page/offer-page.jsx";
 
-const App = ({ ads, reviews }) => {
+const App = ({ reviews }) => {
   return (
     <BrowserRouter>
       <Routes>
@@ -19,21 +18,11 @@ const App = ({ ads, reviews }) => {
 
         <Route path={AppRoute.LOGIN} element={<LoginPage />} exact />
 
-        <Route
-          path={AppRoute.FAVORITES}
-          element={<FavoritesPage ads={ads} />}
-          exact
-        />
+        <Route path={AppRoute.FAVORITES} element={<FavoritesPage />} exact />
 
         <Route
           path={AppRoute.OFFER}
-          element={
-            <OfferPage
-              ad={ads[1]}
-              reviews={reviews}
-              adsNear={OFFERS_NEAR_DATA}
-            />
-          }
+          element={<OfferPage reviews={reviews} adsNear={OFFERS_NEAR_DATA} />}
           exact
         />
 
@@ -44,7 +33,6 @@ const App = ({ ads, reviews }) => {
 };
 
 App.propTypes = {
-  ads: arrayOf(adPropTypes).isRequired,
   reviews: arrayOf(reviewPropTypes),
 };
 

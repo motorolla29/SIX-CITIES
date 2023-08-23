@@ -1,12 +1,11 @@
-import React from 'react';
-import { arrayOf } from 'prop-types';
+import React from "react";
+import { arrayOf } from "prop-types";
+import { connect } from "react-redux";
+import { adPropTypes } from "../../../propTypes/ad.js";
 
-import { adPropTypes } from '../../../propTypes/ad.js';
-
-import Header from '../../header/header';
-import FavoritesList from '../../favourites-list/favourites-list.jsx';
-import Footer from '../../footer/footer.jsx';
-
+import Header from "../../header/header";
+import FavoritesList from "../../favourites-list/favourites-list.jsx";
+import Footer from "../../footer/footer.jsx";
 
 function FavoritesPage({ ads }) {
   return (
@@ -20,7 +19,7 @@ function FavoritesPage({ ads }) {
           </section>
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
@@ -29,4 +28,7 @@ FavoritesPage.propTypes = {
   ads: arrayOf(adPropTypes).isRequired,
 };
 
-export default FavoritesPage;
+const mapStateToProps = ({ ads }) => ({ ads });
+
+export { FavoritesPage };
+export default connect(mapStateToProps)(FavoritesPage);

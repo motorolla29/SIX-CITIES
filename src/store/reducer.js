@@ -1,11 +1,11 @@
 import { DEFAULT_CITY, DEFAULT_SORTING_TYPE } from "../const";
-import { OFFERS_DATA } from "../mocks/offers";
 
 const initialState = {
-  ads: OFFERS_DATA,
+  ads: [],
   activeCity: DEFAULT_CITY,
   adSortingType: DEFAULT_SORTING_TYPE,
   focusedAdId: null,
+  adsAreLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +28,23 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         adSortingType: payload,
+      };
+    case "LOAD_ADS":
+      return {
+        ...state,
+        ads: payload,
+      };
+
+    case "ADS_ARE_LOADED":
+      return {
+        ...state,
+        adsAreLoaded: true,
+      };
+
+    case "ADS_NOT_LOADED":
+      return {
+        ...state,
+        adsAreLoaded: false,
       };
 
     default:

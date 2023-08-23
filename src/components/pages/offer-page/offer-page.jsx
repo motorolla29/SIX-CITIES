@@ -1,7 +1,7 @@
 import React from "react";
 import { adPropTypes } from "../../../propTypes/ad.js";
 import { arrayOf } from "prop-types";
-
+import { connect } from "react-redux";
 import { reviewPropTypes } from "../../../propTypes/review.js";
 import { convertRatingToStars, getPluralNoun } from "../../../util.js";
 import { premiumTagNames } from "../../premium-tag/settings.js";
@@ -41,7 +41,7 @@ function OfferPage({ ad, reviews, adsNear }) {
           <ImagesList images={photos.all} />
           <div className="property__container container">
             <div className="property__wrapper">
-              {isPremium && <PremiumTag variant={premiumTagNames.OFFER} />}
+              {isPremium && <PremiumTag variant={PremiumTagNames.OFFER} />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
                 <button
@@ -145,4 +145,6 @@ OfferPage.propTypes = {
   adsNear: arrayOf(adPropTypes),
 };
 
-export default OfferPage;
+const mapStateToProps = ({ ads }) => ({ ad: ads[0] }); //  временный костыль пока не доберемся до этой страницы
+
+export default connect(mapStateToProps)(OfferPage);

@@ -10,7 +10,7 @@ function CityPlaces({ ads, activeCity }) {
     <>
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">
-        {`${ads.length} ${getPluralNoun(ads.length, "place")}`} to stay in{" "}
+        {`${ads.length} ${getPluralNoun(ads.length, "place")}`} to stay in
         {activeCity}
       </b>
       <SortForm />
