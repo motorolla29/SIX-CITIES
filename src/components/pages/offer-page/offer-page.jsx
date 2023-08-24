@@ -6,7 +6,7 @@ import { reviewPropTypes } from "../../../propTypes/review.js";
 import { convertRatingToStars, getPluralNoun } from "../../../util.js";
 import { premiumTagNames } from "../../premium-tag/settings.js";
 import { CardListNames } from "../../card-list/settings.js";
-import { MapCitySetting } from "../../../const.js";
+import { MapCitySetting, MAX_PHOTOS_IN_AD } from "../../../const.js";
 
 import Header from "../../header/header";
 import PremiumTag from "../../premium-tag/pemium-tag";
@@ -38,7 +38,7 @@ function OfferPage({ ad, reviews, adsNear }) {
       <Header isSignedIn />
       <main className="page__main page__main--property">
         <section className="property">
-          <ImagesList images={photos.all} />
+          <ImagesList images={photos.all.slice(0, MAX_PHOTOS_IN_AD)} />
           <div className="property__container container">
             <div className="property__wrapper">
               {isPremium && <PremiumTag variant={PremiumTagNames.OFFER} />}

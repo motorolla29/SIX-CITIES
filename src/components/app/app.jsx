@@ -9,6 +9,7 @@ import LoginPage from "../pages/login-page/login-page.jsx";
 import FavoritesPage from "../pages/favorites-page/favorites-page.jsx";
 import NotFoundPage from "../pages/not-found-page/not-found-page.jsx";
 import OfferPage from "../pages/offer-page/offer-page.jsx";
+import PrivateRoute from "../private-route/private-route.jsx";
 
 const App = ({ reviews }) => {
   return (
@@ -18,7 +19,9 @@ const App = ({ reviews }) => {
 
         <Route path={AppRoute.LOGIN} element={<LoginPage />} exact />
 
-        <Route path={AppRoute.FAVORITES} element={<FavoritesPage />} exact />
+        <Route path="/" element={<PrivateRoute />} exact>
+          <Route path="/" element={<FavoritesPage />} exact />
+        </Route>
 
         <Route
           path={AppRoute.OFFER}

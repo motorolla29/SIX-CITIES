@@ -1,13 +1,11 @@
-import React from 'react';
-import { bool } from 'prop-types';
+import React from "react";
 
-import { AppRoute } from '../../const';
+import { AppRoute } from "../../const";
 
-import Logo from '../logo/logo';
-import SignIn from '../sign-in/sign-in';
+import Logo from "../logo/logo";
+import SignIn from "../sign-in/sign-in";
 
-
-function Header({ isSignedIn = false }) {
+function Header() {
   return (
     <header className="header">
       <div className="container">
@@ -16,17 +14,12 @@ function Header({ isSignedIn = false }) {
             <Logo isDisabled={window.location.pathname === AppRoute.ROOT} />
           </div>
           <nav className="header__nav">
-            <SignIn isSignedIn={isSignedIn}/>
+            <SignIn />
           </nav>
         </div>
       </div>
     </header>
-
   );
 }
-
-Header.propTypes = {
-  isSignedIn: bool,
-};
 
 export default Header;

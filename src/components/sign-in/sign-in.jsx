@@ -1,11 +1,15 @@
 import React from "react";
-import { bool } from "prop-types";
+import { func, string } from "prop-types";
 import { Link } from "react-router-dom";
 
-import { AppRoute, DISABLED_CLASSNAME } from "../../const";
+import { authInfoPropTypes } from "../../propTypes/authInfo";
+import { AppRoute, AuthorizationStatus, DISABLED_CLASSNAME } from "../../const";
 import { componentVariants, SignInNames } from "./settings";
+import { connect } from "react-redux";
+import { logout } from "../../api/api-actions";
 
-function SignIn({ isSignedIn = false }) {
+function SignIn({ authorizationStatus, authInfo, logoutUser }) {
+  const isSignedIn = authorizationStatus === AuthorizationStatus.AUTH;
   const { actionLinkHref, textNodeClassname } =
     componentVariants[
       isSignedIn ? SignInNames.SIGNED_IN : SignInNames.NOT_SIGNED_IN
@@ -21,16 +25,27 @@ function SignIn({ isSignedIn = false }) {
               : ""
           }`}
         >
-          <div className="header__avatar-wrapper user__avatar-wrapper"></div>
+          <div
+            className="header__avatar-wrapper user__avatar-wrapper"
+            style={
+              authInfo.avatar_url && {
+                backgroundImage: `url(${authInfo.avatar_url})`,
+              }
+            }
+          ></div>
           <span className={textNodeClassname}>
-            {isSignedIn ? "Oliver.conner@gmail.com" : "Sign in"}
+            {isSignedIn ? authInfo.email : "Sign in"}
           </span>
         </Link>
       </li>
 
       {isSignedIn && (
         <li className="header__nav-item">
-          <Link to={AppRoute.ROOT} className="header__nav-link">
+          <Link
+            to={AppRoute.ROOT}
+            onClick={logoutUser}
+            className="header__nav-link"
+          >
             <span className="header__signout">Sign out</span>
           </Link>
         </li>
@@ -40,7 +55,21 @@ function SignIn({ isSignedIn = false }) {
 }
 
 SignIn.propTypes = {
-  isSignedIn: bool,
+  authorizationStatus: string.isRequired,
+  authInfo: authInfoPropTypes,
+  logoutUser: func,
 };
 
-export default SignIn;
+const mapStateToProps = ({ authorizationStatus, authInfo }) => ({
+  authorizationStatus,
+  authInfo,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser() {
+    dispatch(logout());
+  },
+});
+
+export { SignIn };
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

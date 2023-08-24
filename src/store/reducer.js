@@ -1,4 +1,9 @@
-import { DEFAULT_CITY, DEFAULT_SORTING_TYPE } from "../const";
+import { ActionType } from "./action";
+import {
+  DEFAULT_CITY,
+  DEFAULT_SORTING_TYPE,
+  AuthorizationStatus,
+} from "../const";
 
 const initialState = {
   ads: [],
@@ -6,6 +11,8 @@ const initialState = {
   adSortingType: DEFAULT_SORTING_TYPE,
   focusedAdId: null,
   adsAreLoaded: false,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
+  authInfo: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,6 +52,24 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         adsAreLoaded: false,
+      };
+
+    case "SET_AUTH_STATUS":
+      return {
+        ...state,
+        authorizationStatus: payload,
+      };
+
+    case "LOGIN":
+      return {
+        ...state,
+        authInfo: payload,
+      };
+
+    case "LOGOUT":
+      return {
+        ...state,
+        authInfo: {},
       };
 
     default:

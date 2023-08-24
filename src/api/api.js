@@ -1,13 +1,12 @@
-import axios from 'axios';
-
-const APIRoute = {
-  ADS: '/hotels',
-};
+import axios from "axios";
 
 const API_SETUP = {
-  method: 'get',
-  baseURL: 'https://7.react.pages.academy/six-cities',
+  method: "get",
+  baseURL: "https://7.react.pages.academy/six-cities",
   timeout: 5000,
+  headers: {
+    "X-Token": localStorage.token || "",
+  },
 };
 
 const createApi = () => {
@@ -22,7 +21,4 @@ const createApi = () => {
   return api;
 };
 
-export {
-  createApi,
-  APIRoute
-};
+export { createApi };

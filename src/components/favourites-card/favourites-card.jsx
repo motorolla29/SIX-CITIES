@@ -16,7 +16,7 @@ function FavouritesCard({ data }) {
             src={photos.main}
             width="150"
             height="110"
-            alt="Place image"
+            alt="Property view"
           />
         </Link>
       </div>

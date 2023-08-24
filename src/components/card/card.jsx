@@ -27,7 +27,7 @@ function Card({ data, variant, onMouseEnter, onMouseLeave }) {
             src={photos.main}
             width="260"
             height="200"
-            alt="Place image"
+            alt="Property view"
           />
         </Link>
       </div>

@@ -9,11 +9,21 @@ const TABS_CITIES = [
 ];
 const DEFAULT_CITY = TABS_CITIES[0];
 
+const MAX_PHOTOS_IN_AD = 6;
+
 const AppRoute = {
   ROOT: "/",
   LOGIN: "/login",
   FAVORITES: "/favorites",
   OFFER: "/offer/:id?",
+};
+
+const APIRoute = {
+  ADS: "/hotels",
+  ADS_NEARBY: "/nearby",
+  REVIEWS: "/comments",
+  LOGIN: "/login",
+  LOGOUT: "/logout",
 };
 
 const MapPinSetting = {
@@ -83,13 +93,22 @@ const SORTING_OPTIONS = [
 
 const DEFAULT_SORTING_TYPE = SORTING_OPTIONS[0].adSortingType;
 
+const AuthorizationStatus = {
+  AUTH: "AUTH",
+  NO_AUTH: "NO_AUTH",
+  UNKNOWN: "UNKNOWN",
+};
+
 export {
   AppRoute,
+  APIRoute,
   DISABLED_CLASSNAME,
+  MAX_PHOTOS_IN_AD,
   MapPinSetting,
   MapCitySetting,
   TABS_CITIES,
   DEFAULT_CITY,
   DEFAULT_SORTING_TYPE,
   SORTING_OPTIONS,
+  AuthorizationStatus,
 };

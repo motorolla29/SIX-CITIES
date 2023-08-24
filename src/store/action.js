@@ -22,6 +22,18 @@ const ActionCreator = {
   adsNotLoaded: () => ({
     type: "ADS_NOT_LOADED",
   }),
+  setAuthStatus: (bool) => ({
+    type: "SET_AUTH_STATUS",
+    payload: bool,
+  }),
+  login: (userData) => ({
+    type: "LOGIN",
+    payload: userData,
+  }),
+  logout: (userData) => ({
+    type: "LOGOUT",
+    payload: userData,
+  }),
 };
 
 export { ActionCreator };
