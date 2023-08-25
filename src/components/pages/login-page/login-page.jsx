@@ -1,14 +1,14 @@
 import React, { useRef } from "react";
 import { connect } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
-import { func, string } from "prop-types";
+import { Link } from "react-router-dom";
+import { func } from "prop-types";
 
 import { login } from "../../../api/api-actions";
 import { ActionCreator } from "../../../store/action";
 import { AppRoute, AuthorizationStatus } from "../../../const";
 import Header from "../../header/header";
 
-function LoginPage({ changeCity, userLogin, authorizationStatus }) {
+function LoginPage({ changeCity, userLogin }) {
   const formNode = useRef("");
 
   const onSubmit = (evt) => {
@@ -23,10 +23,6 @@ function LoginPage({ changeCity, userLogin, authorizationStatus }) {
 
   const onPasswordInput = (evt) =>
     (evt.target.value = evt.target.value.replace(/\s/g, ""));
-
-  if (authorizationStatus === AuthorizationStatus.AUTH) {
-    return <Navigate to={AppRoute.ROOT} />;
-  }
 
   return (
     <div className="page page--gray page--login">
@@ -90,10 +86,7 @@ function LoginPage({ changeCity, userLogin, authorizationStatus }) {
 LoginPage.propTypes = {
   changeCity: func,
   userLogin: func,
-  authorizationStatus: string,
 };
-
-const mapStateToProps = ({ authorizationStatus }) => ({ authorizationStatus });
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity(newCity) {
@@ -105,4 +98,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export { LoginPage };
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

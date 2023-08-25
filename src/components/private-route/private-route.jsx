@@ -3,19 +3,33 @@ import { Route, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import { string, bool, func } from "prop-types";
 
-import { AppRoute, AuthorizationStatus } from "../../const";
+import { AppRoute, AuthorizationStatus, UserRole } from "../../const";
+import LoadWrapper from "../load-wrapper/load-wrapper";
 
-function PrivateRoute({ render, path, exact, authorizationStatus }) {
+function PrivateRoute({
+  render,
+  authorizationStatus,
+  role = UserRole.VISITOR,
+}) {
+  const isAuthKnown = authorizationStatus !== AuthorizationStatus.UNKNOWN;
   const isAuthorized = authorizationStatus === AuthorizationStatus.AUTH;
-  return (
-    <Route
-      path={path}
-      exact={exact}
-      element={(routeProps) =>
-        isAuthorized ? render(routeProps) : <Navigate to={AppRoute.LOGIN} />
-      }
-    />
-  );
+  const isNotAuthorized = authorizationStatus === AuthorizationStatus.NO_AUTH;
+
+  switch (role) {
+    case UserRole.USER:
+      return (
+        <LoadWrapper isLoad={isAuthKnown}>
+          {isAuthorized ? render() : <Navigate to={AppRoute.LOGIN} />}
+        </LoadWrapper>
+      );
+
+    default:
+      return (
+        <LoadWrapper isLoad={isAuthKnown}>
+          {isNotAuthorized ? render() : <Navigate to={AppRoute.ROOT} />}
+        </LoadWrapper>
+      );
+  }
 }
 
 PrivateRoute.propTypes = {
@@ -23,6 +37,7 @@ PrivateRoute.propTypes = {
   exact: bool.isRequired,
   path: string.isRequired,
   render: func.isRequired,
+  role: string.isRequired,
 };
 
 const mapStateToProps = ({ authorizationStatus }) => ({ authorizationStatus });

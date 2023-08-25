@@ -1,29 +1,26 @@
 import React from "react";
-import { arrayOf } from "prop-types";
+import { arrayOf, objectOf } from "prop-types";
 import { connect } from "react-redux";
 import { adPropTypes } from "../../../propTypes/ad.js";
 
-import FavouritesEmpty from "../../favourites-empty/favourites-empty.jsx";
+import FavouritesListEmpty from "../../favourites-empty/favourites-empty.jsx";
+import { getAdsByCityObj } from "../../../util.js";
 import Header from "../../header/header";
 import FavoritesList from "../../favourites-list/favourites-list.jsx";
 import Footer from "../../footer/footer.jsx";
 
-function FavoritesPage({ ads }) {
+function FavoritesPage({ adsObj }) {
+  const isEmpty = !Object.keys(adsObj).length;
   return (
     <div className="page">
       <Header />
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
-          <section
-            className={`favorites ${!ads.length ? "favorites--empty" : ""}`}
-          >
-            {ads.length ? (
-              <>
-                <h1 className="favorites__title">Saved listing</h1>
-                <FavoritesList ads={ads} />
-              </>
+          <section className={`favorites ${isEmpty ? "favorites--empty" : ""}`}>
+            {isEmpty ? (
+              <FavouritesListEmpty />
             ) : (
-              <FavouritesEmpty />
+              <FavoritesList adsObj={adsObj} />
             )}
           </section>
         </div>
@@ -34,11 +31,11 @@ function FavoritesPage({ ads }) {
 }
 
 FavoritesPage.propTypes = {
-  ads: arrayOf(adPropTypes).isRequired,
+  adsObj: objectOf(arrayOf(adPropTypes)),
 };
 
 const mapStateToProps = ({ ads }) => ({
-  ads: ads.filter((it) => it.isFavourite),
+  adsObj: getAdsByCityObj(ads.filter((it) => it.isFavourite)),
 });
 
 export { FavoritesPage };

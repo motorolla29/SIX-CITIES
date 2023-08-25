@@ -1,7 +1,7 @@
 import React from "react";
 import { arrayOf } from "prop-types";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppRoute } from "../../const.js";
+import { AppRoute, UserRole } from "../../const.js";
 import { reviewPropTypes } from "../../propTypes/review.js";
 import { OFFERS_NEAR_DATA } from "../../mocks/offers-near.js";
 import MainPage from "../pages/main-page/main-page";
@@ -17,11 +17,27 @@ const App = ({ reviews }) => {
       <Routes>
         <Route path={AppRoute.ROOT} element={<MainPage />} exact />
 
-        <Route path={AppRoute.LOGIN} element={<LoginPage />} exact />
+        <Route
+          path={AppRoute.LOGIN}
+          element={
+            <PrivateRoute
+              role={UserRole.VISITOR}
+              render={() => <LoginPage />}
+            />
+          }
+          exact
+        />
 
-        <Route path="/" element={<PrivateRoute />} exact>
-          <Route path="/" element={<FavoritesPage />} exact />
-        </Route>
+        <Route
+          path={AppRoute.FAVORITES}
+          element={
+            <PrivateRoute
+              role={UserRole.USER}
+              render={() => <FavoritesPage />}
+            />
+          }
+          exact
+        />
 
         <Route
           path={AppRoute.OFFER}

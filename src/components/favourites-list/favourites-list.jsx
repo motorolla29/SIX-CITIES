@@ -1,23 +1,15 @@
 import React from "react";
-import { arrayOf, func } from "prop-types";
+import { arrayOf, func, objectOf } from "prop-types";
 import { adPropTypes } from "../../propTypes/ad.js";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import FavoritePlacesList from "../favourite-places-list/favourite-places-list.jsx";
 import { ActionCreator } from "../../store/action.js";
-function FavoritesList({ ads, changeCity }) {
-  const adsSortedByCity = ads.reduce((acc, it) => {
-    if (!acc[it.city]) {
-      acc[it.city] = [];
-    }
-    acc[it.city].push(it);
-    return acc;
-  }, {});
-
+function FavoritesList({ adsObj, changeCity }) {
   return (
     <ul className="favorites__list">
-      {Object.entries(adsSortedByCity).map(([key, value]) => (
+      {Object.entries(adsObj).map(([key, value]) => (
         <li key={key} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
@@ -38,7 +30,7 @@ function FavoritesList({ ads, changeCity }) {
 }
 
 FavoritesList.propTypes = {
-  ads: arrayOf(adPropTypes),
+  adsObj: objectOf(arrayOf(adPropTypes)),
   changeCity: func,
 };
 
