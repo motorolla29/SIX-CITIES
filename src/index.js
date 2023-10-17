@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
@@ -9,20 +9,25 @@ import { setAuthStatus } from "./api/api-actions.js";
 import { createApi } from "./api/api.js";
 import App from "./components/app/app";
 import { reducer } from "./store/reducer";
-import { REVIEWS_DATA } from "./mocks/reviews";
+import redirect from "./store/middlewares/redirect.js";
 
 const api = createApi();
 
 const store = createStore(
   reducer,
-  composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+  composeWithDevTools(
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect)
+  )
 );
 
 store.dispatch(setAuthStatus());
 
-const root = ReactDOM.createRoot(document.getElementById(`root`));
-root.render(
-  <Provider store={store}>
-    <App reviews={REVIEWS_DATA} />
-  </Provider>
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById("root")
 );

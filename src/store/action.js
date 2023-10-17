@@ -19,9 +19,6 @@ const ActionCreator = {
     type: "ADS_ARE_LOADED",
     payload: bool,
   }),
-  adsNotLoaded: () => ({
-    type: "ADS_NOT_LOADED",
-  }),
   setAuthStatus: (bool) => ({
     type: "SET_AUTH_STATUS",
     payload: bool,
@@ -33,6 +30,31 @@ const ActionCreator = {
   logout: (userData) => ({
     type: "LOGOUT",
     payload: userData,
+  }),
+  loadAdDetails: (data) => ({
+    type: "LOAD_AD_DETAILS",
+    payload: data,
+  }),
+  fullAdInfoLoaded: (bool) => ({
+    type: "FULL_AD_INFO_LOADED",
+    payload: bool,
+  }),
+  loadFullAdInfo: (info) => ({
+    type: "LOAD_FULL_AD_INFO",
+    payload: info,
+  }),
+  loadAdComments: (comments) => ({
+    type: "LOAD_AD_COMMENTS",
+    payload: comments,
+  }),
+  loadAdsNearby: (ads) => ({
+    type: "LOAD_ADS_NEARBY",
+    payload: ads,
+  }),
+
+  redirectTo: (path) => ({
+    type: "REDIRECT_TO",
+    payload: path,
   }),
 };
 

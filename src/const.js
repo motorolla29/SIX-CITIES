@@ -10,6 +10,8 @@ const TABS_CITIES = [
 const DEFAULT_CITY = TABS_CITIES[0];
 
 const MAX_PHOTOS_IN_AD = 6;
+const MAX_ADS_NEARBY = 3;
+const MAX_REVIEWS_IN_AD = 10;
 
 const AppRoute = {
   ROOT: "/",
@@ -21,9 +23,10 @@ const AppRoute = {
 const APIRoute = {
   ADS: "/hotels",
   ADS_NEARBY: "/nearby",
-  REVIEWS: "/comments",
+  COMMENTS: "/comments",
   LOGIN: "/login",
   LOGOUT: "/logout",
+  NOT_FOUND: "/404",
 };
 
 const UserRole = {
@@ -33,12 +36,12 @@ const UserRole = {
 
 const MapPinSetting = {
   DEFAULT: {
-    iconUrl: "img/pin.svg",
+    iconUrl: "../img/pin.svg",
     iconSize: [30, 30],
     iconAnchor: [15, 30],
   },
   ACTIVE: {
-    iconUrl: "img/pin-active.svg",
+    iconUrl: "../img/pin-active.svg",
     iconSize: [30, 30],
     iconAnchor: [15, 30],
   },
@@ -109,6 +112,8 @@ export {
   APIRoute,
   DISABLED_CLASSNAME,
   MAX_PHOTOS_IN_AD,
+  MAX_REVIEWS_IN_AD,
+  MAX_ADS_NEARBY,
   MapPinSetting,
   MapCitySetting,
   TABS_CITIES,

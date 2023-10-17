@@ -1,58 +1,65 @@
 import React from "react";
-import { arrayOf } from "prop-types";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AppRoute, UserRole } from "../../const.js";
-import { reviewPropTypes } from "../../propTypes/review.js";
-import { OFFERS_NEAR_DATA } from "../../mocks/offers-near.js";
+import { useSelector } from "react-redux";
+import { Router, Switch, Route } from "react-router-dom";
+
+import { AppRoute, AuthorizationStatus } from "../../const.js";
+import browserHistory from "../../services/browser-history.js";
+import withPrivateRoute from "../../hoc/withPrivateRoute.jsx";
 import MainPage from "../pages/main-page/main-page";
 import LoginPage from "../pages/login-page/login-page.jsx";
 import FavoritesPage from "../pages/favorites-page/favorites-page.jsx";
 import NotFoundPage from "../pages/not-found-page/not-found-page.jsx";
 import OfferPage from "../pages/offer-page/offer-page.jsx";
-import PrivateRoute from "../private-route/private-route.jsx";
+import LoadWrapper from "../load-wrapper/load-wrapper.jsx";
 
-const App = ({ reviews }) => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.ROOT} element={<MainPage />} exact />
-
-        <Route
-          path={AppRoute.LOGIN}
-          element={
-            <PrivateRoute
-              role={UserRole.VISITOR}
-              render={() => <LoginPage />}
-            />
-          }
-          exact
-        />
-
-        <Route
-          path={AppRoute.FAVORITES}
-          element={
-            <PrivateRoute
-              role={UserRole.USER}
-              render={() => <FavoritesPage />}
-            />
-          }
-          exact
-        />
-
-        <Route
-          path={AppRoute.OFFER}
-          element={<OfferPage reviews={reviews} adsNear={OFFERS_NEAR_DATA} />}
-          exact
-        />
-
-        <Route element={<NotFoundPage />} />
-      </Routes>
-    </BrowserRouter>
+function App() {
+  const authStatus = useSelector(
+    ({ authorizationStatus }) => authorizationStatus
   );
-};
+  const isAuthKnown = authStatus !== AuthorizationStatus.UNKNOWN;
 
-App.propTypes = {
-  reviews: arrayOf(reviewPropTypes),
-};
+  const LoginPagePrivate = withPrivateRoute(
+    LoginPage,
+    authStatus === AuthorizationStatus.NO_AUTH
+  );
+
+  const FavouritesPagePrivate = withPrivateRoute(
+    FavoritesPage,
+    authStatus === AuthorizationStatus.AUTH,
+    AppRoute.LOGIN
+  );
+
+  return (
+    <Router history={browserHistory}>
+      <Switch>
+        <Route path={AppRoute.ROOT} exact>
+          <MainPage />
+        </Route>
+
+        <Route path={AppRoute.LOGIN} exact>
+          <LoadWrapper isLoad={isAuthKnown}>
+            <LoginPagePrivate />
+          </LoadWrapper>
+        </Route>
+
+        <Route path={AppRoute.FAVORITES} exact>
+          <LoadWrapper isLoad={isAuthKnown}>
+            <FavouritesPagePrivate />
+          </LoadWrapper>
+        </Route>
+
+        <Route
+          exact
+          path={`${AppRoute.OFFER}/:id`}
+          render={({ match }) => <OfferPage adId={match.params.id} />}
+        />
+
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
+    </Router>
+  );
+}
 
 export default App;

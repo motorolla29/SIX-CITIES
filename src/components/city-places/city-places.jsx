@@ -1,7 +1,9 @@
 import React from "react";
+import { connect } from "react-redux";
 import { string, arrayOf } from "prop-types";
 import { adPropTypes } from "../../propTypes/ad";
-import { getPluralNoun } from "../../util";
+
+import { getPluralNoun, sortByKey } from "../../util";
 import CardList from "../card-list/card-list";
 import SortForm from "../sort-form/sort-form";
 
@@ -10,7 +12,7 @@ function CityPlaces({ ads, activeCity }) {
     <>
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">
-        {`${ads.length} ${getPluralNoun(ads.length, "place")}`} to stay in
+        {`${ads.length} ${getPluralNoun(ads.length, "place")}`} to stay in{" "}
         {activeCity}
       </b>
       <SortForm />
@@ -24,4 +26,9 @@ CityPlaces.propTypes = {
   activeCity: string.isRequired,
 };
 
-export default CityPlaces;
+const mapStateToProps = (state, ownProps) => ({
+  ads: sortByKey(ownProps.ads, state.adSortingType),
+});
+
+export { CityPlaces };
+export default connect(mapStateToProps)(CityPlaces);

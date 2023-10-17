@@ -1,10 +1,9 @@
-import { string } from 'prop-types';
-import React from 'react';
+import { string } from "prop-types";
+import React from "react";
 
-import {componentVariants, premiumTagNames} from './settings.js';
+import { componentVariants, PremiumTagNames } from "./settings.js";
 
-
-function PremiumTag({ variant = premiumTagNames.MAIN}) {
+function PremiumTag({ variant = PremiumTagNames.MAIN }) {
   return (
     <div className={componentVariants[variant].className}>
       <span>Premium</span>

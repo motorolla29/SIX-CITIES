@@ -33,7 +33,9 @@ function Map({ city, ads, focusedAdId }) {
       markers.addTo(map);
       map.panTo(city);
 
-      return () => markers.clearLayers();
+      return () => {
+        markers.clearLayers();
+      };
     }
   }, [map, ads, activeIcon, city, defaultIcon, focusedAdId]);
 

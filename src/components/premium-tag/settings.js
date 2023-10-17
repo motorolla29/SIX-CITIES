@@ -1,14 +1,14 @@
-import {getSettingsVariantNames} from '../../util';
+import { getSettingsVariantNames } from "../../util";
 
 const componentVariants = {
   main: {
-    className: 'place-card__mark',
+    className: "place-card__mark",
   },
   offer: {
-    className: 'property__mark',
+    className: "property__mark",
   },
 };
 
-const premiumTagNames = getSettingsVariantNames(componentVariants);
+const PremiumTagNames = getSettingsVariantNames(componentVariants);
 
-export {componentVariants, premiumTagNames};
+export { componentVariants, PremiumTagNames };

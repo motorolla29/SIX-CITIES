@@ -14,7 +14,9 @@ import CityPlacesEmpty from "../../city-places-empty/city-places-empty.jsx";
 import Map from "../../map/map.jsx";
 
 function MainPage({ ads, activeCity, focusedAdId, adsAreLoaded, loadAds }) {
-  useEffect(loadAds, [loadAds]);
+  useEffect(() => {
+    loadAds();
+  }, [loadAds]);
 
   return (
     <div className="page page--gray page--main">

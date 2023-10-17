@@ -1,4 +1,3 @@
-import { ActionType } from "./action";
 import {
   DEFAULT_CITY,
   DEFAULT_SORTING_TYPE,
@@ -13,6 +12,10 @@ const initialState = {
   adsAreLoaded: false,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   authInfo: {},
+  fullAdInfoLoaded: false,
+  fullAdInfo: {},
+  adComments: [],
+  adsNearby: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -45,13 +48,7 @@ const reducer = (state = initialState, action) => {
     case "ADS_ARE_LOADED":
       return {
         ...state,
-        adsAreLoaded: true,
-      };
-
-    case "ADS_NOT_LOADED":
-      return {
-        ...state,
-        adsAreLoaded: false,
+        adsAreLoaded: payload,
       };
 
     case "SET_AUTH_STATUS":
@@ -70,6 +67,34 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authInfo: {},
+      };
+    case "LOAD_AD_DETAILS":
+      return {
+        ...state,
+        currentAdDetails: payload,
+      };
+
+    case "FULL_AD_INFO_LOADED":
+      return {
+        ...state,
+        fullAdInfoLoaded: payload,
+      };
+    case "LOAD_FULL_AD_INFO":
+      return {
+        ...state,
+        fullAdInfo: payload,
+      };
+
+    case "LOAD_AD_COMMENTS":
+      return {
+        ...state,
+        adComments: payload,
+      };
+
+    case "LOAD_ADS_NEARBY":
+      return {
+        ...state,
+        adsNearby: payload,
       };
 
     default:
