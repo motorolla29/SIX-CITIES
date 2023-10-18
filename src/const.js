@@ -13,6 +13,11 @@ const MAX_PHOTOS_IN_AD = 6;
 const MAX_ADS_NEARBY = 3;
 const MAX_REVIEWS_IN_AD = 10;
 
+const CommentFormLength = {
+  MIN: 50,
+  MAX: 300,
+};
+
 const AppRoute = {
   ROOT: "/",
   LOGIN: "/login",
@@ -122,4 +127,5 @@ export {
   SORTING_OPTIONS,
   UserRole,
   AuthorizationStatus,
+  CommentFormLength,
 };

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import FavoritePlacesList from "../favourite-places-list/favourite-places-list.jsx";
-import { ActionCreator } from "../../store/action.js";
+import { changeCity } from "../../store/action.js";
 function FavoritesList({ adsObj, changeCity }) {
   return (
     <ul className="favorites__list">
@@ -36,7 +36,7 @@ FavoritesList.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   changeCity(newCity) {
-    dispatch(ActionCreator.changeCity(newCity));
+    dispatch(changeCity(newCity));
   },
 });
 

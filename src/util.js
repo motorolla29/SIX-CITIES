@@ -49,6 +49,9 @@ const getAdsByCityObj = (ads) =>
     return acc;
   }, {});
 
+const sortByDate = (arr) =>
+  arr.sort((a, b) => new Date(b.date) - new Date(a.date));
+
 export {
   convertRatingToStars,
   getSettingsVariantNames,
@@ -57,4 +60,5 @@ export {
   filterAdsByCity,
   sortByKey,
   getAdsByCityObj,
+  sortByDate,
 };

@@ -6,6 +6,7 @@ import { adPropTypes } from "../../propTypes/ad";
 import { getPluralNoun, sortByKey } from "../../util";
 import CardList from "../card-list/card-list";
 import SortForm from "../sort-form/sort-form";
+import { getAdSortingType } from "../../store/ui/selectors";
 
 function CityPlaces({ ads, activeCity }) {
   return (
@@ -27,7 +28,7 @@ CityPlaces.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  ads: sortByKey(ownProps.ads, state.adSortingType),
+  ads: sortByKey(ownProps.ads, getAdSortingType(state)),
 });
 
 export { CityPlaces };

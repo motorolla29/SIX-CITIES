@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { arrayOf, bool, func, string } from "prop-types";
+
+import { sortByDate } from "../../../util.js";
 import {
   AuthorizationStatus,
   MAX_REVIEWS_IN_AD,
@@ -12,21 +14,24 @@ import {
   fetchAdComments,
 } from "../../../api/api-actions.js";
 import { adPropTypes } from "../../../propTypes/ad.js";
-
 import { reviewPropTypes } from "../../../propTypes/review.js";
-import adaptCommentsFormat from "../../../adapters/comments.js";
-import adaptAdsFormat from "../../../adapters/ads.js";
-import { ActionCreator } from "../../../store/action.js";
-
+import { fullAdInfoLoaded } from "../../../store/action.js";
 import Header from "../../header/header";
 import LoadWrapper from "../../load-wrapper/load-wrapper.jsx";
 import OfferInfoWrapper from "../../offer-info-wrapper/offer-info-wrapper.jsx";
+import {
+  getAdComments,
+  getAdsNearby,
+  getFullAdInfo,
+  getFullAdInfoLoaded,
+} from "../../../store/data/selectors.js";
+import { getAuthorizationStatus } from "../../../store/user/selectors.js";
 
 function OfferPage({
   adId,
   fullAdInfo,
   reviews,
-  adsNear,
+  adsNearby,
   fullAdInfoLoaded,
   setfullAdInfoLoaded,
   loadFullAdInfo,
@@ -40,7 +45,7 @@ function OfferPage({
     loadAdsNearby(adId);
 
     return () => setfullAdInfoLoaded(false);
-  }, [loadAdsNearby, loadComments, loadFullAdInfo, setfullAdInfoLoaded, adId]);
+  }, [adId]);
 
   return (
     <div className="page">
@@ -50,8 +55,9 @@ function OfferPage({
           <OfferInfoWrapper
             info={fullAdInfo}
             reviews={reviews}
-            adsNear={adsNear}
+            adsNearby={adsNearby}
             isAuth={isAuth}
+            adId={adId}
           />
         </LoadWrapper>
       </main>
@@ -61,7 +67,7 @@ function OfferPage({
 
 OfferPage.propTypes = {
   reviews: arrayOf(reviewPropTypes),
-  adsNear: arrayOf(adPropTypes),
+  adsNearby: arrayOf(adPropTypes),
   fullAdInfo: adPropTypes,
   fullAdInfoLoaded: bool,
   setfullAdInfoLoaded: func,
@@ -72,20 +78,12 @@ OfferPage.propTypes = {
   adId: string,
 };
 
-const mapStateToProps = ({
-  fullAdInfoLoaded,
-  authorizationStatus,
-  fullAdInfo,
-  adComments,
-  adsNearby,
-}) => ({
-  fullAdInfo: Object.keys(fullAdInfo).length
-    ? adaptAdsFormat([fullAdInfo])[0]
-    : fullAdInfo,
-  reviews: adaptCommentsFormat(adComments.slice(0, MAX_REVIEWS_IN_AD)),
-  adsNear: adaptAdsFormat(adsNearby.slice(0, MAX_ADS_NEARBY)),
-  isAuth: authorizationStatus === AuthorizationStatus.AUTH,
-  fullAdInfoLoaded,
+const mapStateToProps = (state) => ({
+  reviews: sortByDate(getAdComments(state).slice(-MAX_REVIEWS_IN_AD)),
+  isAuth: getAuthorizationStatus(state) === AuthorizationStatus.AUTH,
+  adsNearby: getAdsNearby(state).slice(0, MAX_ADS_NEARBY),
+  fullAdInfo: getFullAdInfo(state),
+  fullAdInfoLoaded: getFullAdInfoLoaded(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -99,7 +97,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchAdsNearby(id));
   },
   setfullAdInfoLoaded(isLoaded) {
-    dispatch(ActionCreator.fullAdInfoLoaded(isLoaded));
+    dispatch(fullAdInfoLoaded(isLoaded));
   },
 });
 

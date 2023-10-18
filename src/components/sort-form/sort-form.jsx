@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
-import { string, func } from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import { string, func } from "prop-types";
+import { connect } from "react-redux";
 
-import { ActionCreator } from '../../store/action';
-import { SORTING_OPTIONS } from '../../const';
-
-import SortingOptionsList from '../sorting-options-list/sorting-options-list';
-
+import { changeSortingType } from "../../store/action";
+import { SORTING_OPTIONS } from "../../const";
+import SortingOptionsList from "../sorting-options-list/sorting-options-list";
+import { getAdSortingType } from "../../store/ui/selectors";
 
 function SortForm({ adSortingType, changeSortingType }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,15 +41,15 @@ SortForm.propTypes = {
   changeSortingType: func,
 };
 
-const mapStateToProps = ({ adSortingType }) => ({ adSortingType });
+const mapStateToProps = (state) => ({
+  adSortingType: getAdSortingType(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   changeSortingType(adSortingType) {
-    dispatch(ActionCreator.changeSortingType(adSortingType));
+    dispatch(changeSortingType(adSortingType));
   },
 });
 
 export { SortForm };
 export default connect(mapStateToProps, mapDispatchToProps)(SortForm);
-
-

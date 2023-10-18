@@ -12,6 +12,8 @@ import Tabs from "../../tabs/tabs.jsx";
 import CityPlaces from "../../city-places/city-places.jsx";
 import CityPlacesEmpty from "../../city-places-empty/city-places-empty.jsx";
 import Map from "../../map/map.jsx";
+import { getActiveCity, getFocusedAdId } from "../../../store/ui/selectors.js";
+import { getAds, getAdsAreLoaded } from "../../../store/data/selectors.js";
 
 function MainPage({ ads, activeCity, focusedAdId, adsAreLoaded, loadAds }) {
   useEffect(() => {
@@ -69,11 +71,11 @@ MainPage.propTypes = {
   loadAds: func,
 };
 
-const mapStateToProps = ({ ads, activeCity, focusedAdId, adsAreLoaded }) => ({
-  ads: filterAdsByCity(ads, activeCity),
-  activeCity,
-  focusedAdId,
-  adsAreLoaded,
+const mapStateToProps = (state) => ({
+  ads: filterAdsByCity(getAds(state), getActiveCity(state)),
+  activeCity: getActiveCity(state),
+  focusedAdId: getFocusedAdId(state),
+  adsAreLoaded: getAdsAreLoaded(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

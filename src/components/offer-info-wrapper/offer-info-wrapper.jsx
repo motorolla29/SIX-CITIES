@@ -1,5 +1,5 @@
 import React from "react";
-import { arrayOf, bool } from "prop-types";
+import { arrayOf, bool, string } from "prop-types";
 import { convertRatingToStars, getPluralNoun } from "../../util.js";
 import { PremiumTagNames } from "../premium-tag/settings.js";
 import { adPropTypes } from "../../propTypes/ad.js";
@@ -16,7 +16,7 @@ import ReviewsList from "../reviews-list/reviews-list.jsx";
 import ReviewForm from "../review-form/review-form.jsx";
 import Map from "../map/map.jsx";
 
-function OfferInfoWrapper({ info, reviews, adsNear, isAuth = false }) {
+function OfferInfoWrapper({ info, reviews, adsNearby, adId, isAuth }) {
   const {
     photos,
     title,
@@ -33,7 +33,7 @@ function OfferInfoWrapper({ info, reviews, adsNear, isAuth = false }) {
   } = info;
 
   const getMapAds = () => {
-    const mapAds = adsNear.slice();
+    const mapAds = adsNearby.slice();
     mapAds.push({ address });
     return mapAds;
   };
@@ -117,11 +117,11 @@ function OfferInfoWrapper({ info, reviews, adsNear, isAuth = false }) {
                 </h2>
               )}
               <ReviewsList reviews={reviews} />
-              {isAuth && <ReviewForm />}
+              {isAuth && <ReviewForm adId={adId} />}
             </section>
           </div>
         </div>
-        {adsNear.length && (
+        {adsNearby.length && (
           <section className="property__map map">
             <Map city={address} ads={getMapAds()} />
           </section>
@@ -129,12 +129,12 @@ function OfferInfoWrapper({ info, reviews, adsNear, isAuth = false }) {
       </section>
       <div className="container">
         <section className="near-places places">
-          {!!adsNear.length && (
+          {!!adsNearby.length && (
             <h2 className="near-places__title">
               Other places in the neighbourhood
             </h2>
           )}
-          <CardList ads={adsNear} variant={CardListNames.OFFER_PAGE} />
+          <CardList ads={adsNearby} variant={CardListNames.OFFER_PAGE} />
         </section>
       </div>
     </>
@@ -143,9 +143,10 @@ function OfferInfoWrapper({ info, reviews, adsNear, isAuth = false }) {
 
 OfferInfoWrapper.propTypes = {
   reviews: arrayOf(reviewPropTypes),
-  adsNear: arrayOf(adPropTypes),
+  adsNearby: arrayOf(adPropTypes),
   info: adPropTypes,
   isAuth: bool.isRequired,
+  adId: string,
 };
 
 export default OfferInfoWrapper;

@@ -8,6 +8,7 @@ import { getAdsByCityObj } from "../../../util.js";
 import Header from "../../header/header";
 import FavoritesList from "../../favourites-list/favourites-list.jsx";
 import Footer from "../../footer/footer.jsx";
+import { getAds } from "../../../store/data/selectors.js";
 
 function FavoritesPage({ adsObj }) {
   const isEmpty = !Object.keys(adsObj).length;
@@ -34,8 +35,8 @@ FavoritesPage.propTypes = {
   adsObj: objectOf(arrayOf(adPropTypes)),
 };
 
-const mapStateToProps = ({ ads }) => ({
-  adsObj: getAdsByCityObj(ads.filter((it) => it.isFavourite)),
+const mapStateToProps = (state) => ({
+  adsObj: getAdsByCityObj(getAds(state).filter((it) => it.isFavourite)),
 });
 
 export { FavoritesPage };

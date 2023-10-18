@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { arrayOf, func, string } from "prop-types";
 
-import { ActionCreator } from "../../store/action.js";
+import { changeFocusedAdId } from "../../store/action.js";
 import { adPropTypes } from "../../propTypes/ad.js";
 import { CardListNames, componentVariants } from "./settings.js";
 import Card from "../card/card.jsx";
@@ -37,7 +37,7 @@ CardList.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   changeFocusedAdId(newId) {
-    dispatch(ActionCreator.changeFocusedAdId(newId));
+    dispatch(changeFocusedAdId(newId));
   },
 });
 
