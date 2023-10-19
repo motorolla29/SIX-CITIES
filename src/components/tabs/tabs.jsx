@@ -1,12 +1,15 @@
 import React from "react";
-import { arrayOf, func, string } from "prop-types";
-import { connect } from "react-redux";
+import { arrayOf, string } from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 
 import { changeCity } from "../../store/action";
 import TabsList from "../tabs-list/tabs-list";
 import { getActiveCity } from "../../store/ui/selectors";
 
-function Tabs({ cities, activeCity, changeCity }) {
+function Tabs({ cities }) {
+  const dispatch = useDispatch();
+  const activeCity = useSelector(getActiveCity);
+
   return (
     <div className="tabs">
       <section className="locations container">
@@ -14,7 +17,7 @@ function Tabs({ cities, activeCity, changeCity }) {
           <TabsList
             cities={cities}
             activeCity={activeCity}
-            onClick={changeCity}
+            onClick={(city) => dispatch(changeCity(city))}
           />
         </ul>
       </section>
@@ -24,19 +27,6 @@ function Tabs({ cities, activeCity, changeCity }) {
 
 Tabs.propTypes = {
   cities: arrayOf(string),
-  activeCity: string,
-  changeCity: func,
 };
 
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  changeCity(city) {
-    dispatch(changeCity(city));
-  },
-});
-
-export { Tabs };
-export default connect(mapStateToProps, mapDispatchToProps)(Tabs);
+export default Tabs;

@@ -37,7 +37,7 @@ function Map({ city, ads, focusedAdId }) {
         markers.clearLayers();
       };
     }
-  }, [map, city, focusedAdId]);
+  }, [map, city, focusedAdId, activeIcon, ads, defaultIcon]);
 
   return <div id="map" style={{ height: "100%" }} ref={mapRef}></div>;
 }

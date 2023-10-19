@@ -1,14 +1,17 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { string, arrayOf } from "prop-types";
-import { adPropTypes } from "../../propTypes/ad";
 
+import { getAdSortingType } from "../../store/ui/selectors";
+import { adPropTypes } from "../../propTypes/ad";
 import { getPluralNoun, sortByKey } from "../../util";
 import CardList from "../card-list/card-list";
 import SortForm from "../sort-form/sort-form";
-import { getAdSortingType } from "../../store/ui/selectors";
 
 function CityPlaces({ ads, activeCity }) {
+  const sortedAds = useSelector((state) =>
+    sortByKey(ads, getAdSortingType(state))
+  );
   return (
     <>
       <h2 className="visually-hidden">Places</h2>
@@ -17,7 +20,7 @@ function CityPlaces({ ads, activeCity }) {
         {activeCity}
       </b>
       <SortForm />
-      <CardList ads={ads} />
+      <CardList ads={sortedAds} />
     </>
   );
 }
@@ -27,9 +30,4 @@ CityPlaces.propTypes = {
   activeCity: string.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  ads: sortByKey(ownProps.ads, getAdSortingType(state)),
-});
-
-export { CityPlaces };
-export default connect(mapStateToProps)(CityPlaces);
+export default CityPlaces;

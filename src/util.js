@@ -50,7 +50,7 @@ const getAdsByCityObj = (ads) =>
   }, {});
 
 const sortByDate = (arr) =>
-  arr.sort((a, b) => new Date(b.date) - new Date(a.date));
+  arr.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
 export {
   convertRatingToStars,

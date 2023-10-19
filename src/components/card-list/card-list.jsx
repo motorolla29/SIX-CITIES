@@ -1,19 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
-import { arrayOf, func, string } from "prop-types";
+import { arrayOf, string } from "prop-types";
+import { useDispatch } from "react-redux";
 
 import { changeFocusedAdId } from "../../store/action.js";
 import { adPropTypes } from "../../propTypes/ad.js";
 import { CardListNames, componentVariants } from "./settings.js";
 import Card from "../card/card.jsx";
 
-function CardList({
-  ads,
-  variant = CardListNames.MAIN_PAGE,
-  changeFocusedAdId,
-}) {
+function CardList({ ads, variant = CardListNames.MAIN_PAGE }) {
   const { listClassNameMod } = componentVariants[variant];
   const isMainPage = variant === CardListNames.MAIN_PAGE;
+  const dispatch = useDispatch();
   return (
     <div className={`${listClassNameMod} places__list`}>
       {ads.map((it) => (
@@ -21,8 +19,8 @@ function CardList({
           key={it.id}
           data={it}
           variant={variant}
-          onMouseEnter={() => isMainPage && changeFocusedAdId(it.id)}
-          onMouseLeave={() => isMainPage && changeFocusedAdId(null)}
+          onMouseEnter={() => isMainPage && dispatch(changeFocusedAdId(it.id))}
+          onMouseLeave={() => isMainPage && dispatch(changeFocusedAdId(null))}
         />
       ))}
     </div>
@@ -32,14 +30,6 @@ function CardList({
 CardList.propTypes = {
   ads: arrayOf(adPropTypes).isRequired,
   variant: string,
-  changeFocusedAdId: func,
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  changeFocusedAdId(newId) {
-    dispatch(changeFocusedAdId(newId));
-  },
-});
-
-export { CardList };
-export default connect(null, mapDispatchToProps)(CardList);
+export default CardList;

@@ -1,18 +1,20 @@
 import React from "react";
-import { func, string } from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { userInfoPropTypes } from "../../propTypes/userInfo";
 import { AppRoute, AuthorizationStatus, DISABLED_CLASSNAME } from "../../const";
 import { componentVariants, SignInNames } from "./settings";
-import { connect } from "react-redux";
 import { logout } from "../../api/api-actions";
 import {
   getAuthInfo,
   getAuthorizationStatus,
 } from "../../store/user/selectors";
 
-function SignIn({ authorizationStatus, userInfo, logoutUser }) {
+function SignIn() {
+  const dispatch = useDispatch();
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const userInfo = useSelector(getAuthInfo);
+
   const isSignedIn = authorizationStatus === AuthorizationStatus.AUTH;
   const { actionLinkHref, textNodeClassname } =
     componentVariants[
@@ -32,13 +34,13 @@ function SignIn({ authorizationStatus, userInfo, logoutUser }) {
           <div
             className="header__avatar-wrapper user__avatar-wrapper"
             style={
-              userInfo.avatar_url && {
-                backgroundImage: `url(${userInfo.avatar_url})`,
+              userInfo?.avatar_url && {
+                backgroundImage: `url(${userInfo?.avatar_url})`,
               }
             }
           ></div>
           <span className={textNodeClassname}>
-            {isSignedIn ? userInfo.email : "Sign in"}
+            {isSignedIn ? userInfo?.email : "Sign in"}
           </span>
         </Link>
       </li>
@@ -47,7 +49,7 @@ function SignIn({ authorizationStatus, userInfo, logoutUser }) {
         <li className="header__nav-item">
           <Link
             to={AppRoute.ROOT}
-            onClick={logoutUser}
+            onClick={() => dispatch(logout())}
             className="header__nav-link"
           >
             <span className="header__signout">Sign out</span>
@@ -58,22 +60,4 @@ function SignIn({ authorizationStatus, userInfo, logoutUser }) {
   );
 }
 
-SignIn.propTypes = {
-  authorizationStatus: string.isRequired,
-  userInfo: authInfoPropTypes,
-  logoutUser: func,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: getAuthorizationStatus(state),
-  userInfo: getAuthInfo(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  logoutUser() {
-    dispatch(logout());
-  },
-});
-
-export { SignIn };
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default SignIn;
