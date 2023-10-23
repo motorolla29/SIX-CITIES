@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { generatePath, Link } from "react-router-dom";
 import { func, string } from "prop-types";
 
@@ -68,4 +68,7 @@ Card.propTypes = {
   variant: string,
 };
 
-export default Card;
+export default memo(
+  Card,
+  (prevProps, nextProps) => prevProps.data === nextProps.data
+);
