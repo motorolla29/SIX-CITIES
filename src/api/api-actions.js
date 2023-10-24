@@ -9,11 +9,15 @@ import {
   redirectTo,
   loadAdsNearby,
   setCommentIsPosted,
+  setIsFavorite,
   loadAdComments,
+  loadFavoriteAds,
+  setFavoriteAdsAreLoaded,
 } from "../store/action";
+import { APIRoute, AuthorizationStatus } from "../const";
+import { getIsFavoriteStatusCode } from "../util";
 import adaptAdFormat from "../adapters/ads";
 import adaptCommentFormat from "../adapters/comments";
-import { APIRoute, AuthorizationStatus } from "../const";
 
 const fetchOffers = () => (dispatch, _getState, api) =>
   api
@@ -90,6 +94,25 @@ const postComment = (userComment, adId) => (dispatch, _getState, api) => {
       dispatch(setCommentIsPosted(true));
     });
 };
+const fetchFavoriteAds = () => (dispatch, _getState, api) => {
+  api.get(`${APIRoute.FAVORITE}`).then(({ data }) => {
+    dispatch(loadFavoriteAds(data.map(adaptAdFormat)));
+    dispatch(setFavoriteAdsAreLoaded(true));
+  });
+};
+
+const setIsFavoriteAd = (hotelId, isFavorite) => (dispatch, _getState, api) => {
+  api
+    .post(
+      `${APIRoute.FAVORITE}/${hotelId}/${getIsFavoriteStatusCode(isFavorite)}`
+    )
+    .then(() => {
+      dispatch(setIsFavorite(hotelId, isFavorite));
+    })
+    .catch((e) => {
+      dispatch(redirectTo(APIRoute.LOGIN));
+    });
+};
 
 export {
   fetchOffers,
@@ -100,4 +123,6 @@ export {
   fetchFullAdInfo,
   fetchAdComments,
   postComment,
+  fetchFavoriteAds,
+  setIsFavoriteAd,
 };

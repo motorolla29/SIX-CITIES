@@ -9,16 +9,16 @@ const getFullAdInfoLoaded = (state) => state[NameSpace.DATA].fullAdInfoLoaded;
 const getFullAdInfo = (state) => state[NameSpace.DATA].fullAdInfo;
 const getAdComments = (state) => state[NameSpace.DATA].adComments;
 const getAdsNearby = (state) => state[NameSpace.DATA].adsNearby;
+const getFavoriteAds = (state) => state[NameSpace.DATA].favoriteAds;
+const favoriteAdsAreLoaded = (state) =>
+  state[NameSpace.DATA].favoriteAdsAreLoaded;
+
 const getLimitedAdsNearby = createSelector(getAdsNearby, (ads) =>
   ads.slice(0, MAX_ADS_NEARBY)
 );
 
 const getLimitedSortedComments = createSelector(getAdComments, (comments) =>
   sortByDate(comments).slice(-MAX_REVIEWS_IN_AD)
-);
-
-const getFavouriteAdsByCityObj = createSelector(getAds, (ads) =>
-  ads.filter((it) => it.isFavourite)
 );
 
 export {
@@ -30,5 +30,6 @@ export {
   getAdsNearby,
   getLimitedAdsNearby,
   getLimitedSortedComments,
-  getFavouriteAdsByCityObj,
+  getFavoriteAds,
+  favoriteAdsAreLoaded,
 };

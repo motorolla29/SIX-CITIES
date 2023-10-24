@@ -1,6 +1,6 @@
 import React from "react";
 
-function FavouritesListEmpty() {
+function FavoritesListEmpty() {
   return (
     <>
       <h1 className="visually-hidden">Favorites (empty)</h1>
@@ -14,4 +14,4 @@ function FavouritesListEmpty() {
   );
 }
 
-export default FavouritesListEmpty;
+export default FavoritesListEmpty;

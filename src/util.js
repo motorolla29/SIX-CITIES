@@ -52,6 +52,35 @@ const getAdsByCityObj = (ads) =>
 const sortByDate = (arr) =>
   arr.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
 
+const getIsFavoriteStatusCode = (bool) => (bool ? 1 : 0);
+
+const mapIsFavoriteToState = (
+  fullAdInfo,
+  ads,
+  adsNearby,
+  favoriteAds,
+  payload
+) => {
+  const matchId = (item) => item.id === payload.hotelId;
+
+  const favoriteFromPageIndex = favoriteAds.findIndex(matchId);
+  const favoriteNearby = adsNearby.find(matchId);
+  const favFromTotal = ads.find(matchId);
+
+  if (favoriteFromPageIndex > -1) {
+    favoriteAds.splice(favoriteFromPageIndex, 1);
+  }
+  if (favoriteNearby) {
+    favoriteNearby.isFavorite = payload.isFavorite;
+  }
+  if (favFromTotal) {
+    favFromTotal.isFavorite = payload.isFavorite;
+  }
+  if (fullAdInfo.id === payload.hotelId) {
+    fullAdInfo.isFavorite = payload.isFavorite;
+  }
+};
+
 export {
   convertRatingToStars,
   getSettingsVariantNames,
@@ -61,4 +90,6 @@ export {
   sortByKey,
   getAdsByCityObj,
   sortByDate,
+  getIsFavoriteStatusCode,
+  mapIsFavoriteToState,
 };

@@ -22,7 +22,7 @@ function App() {
     authStatus === AuthorizationStatus.NO_AUTH
   );
 
-  const FavouritesPagePrivate = withPrivateRoute(
+  const FavoritesPagePrivate = withPrivateRoute(
     FavoritesPage,
     authStatus === AuthorizationStatus.AUTH,
     AppRoute.LOGIN
@@ -43,7 +43,7 @@ function App() {
 
         <Route path={AppRoute.FAVORITES} exact>
           <LoadWrapper isLoad={isAuthKnown}>
-            <FavouritesPagePrivate />
+            <FavoritesPagePrivate />
           </LoadWrapper>
         </Route>
 

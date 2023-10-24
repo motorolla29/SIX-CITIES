@@ -1,6 +1,5 @@
 import React from "react";
 import { arrayOf, string, func } from "prop-types";
-import { useDispatch } from "react-redux";
 
 import { adPropTypes } from "../../propTypes/ad.js";
 import { CardListNames, componentVariants } from "./settings.js";

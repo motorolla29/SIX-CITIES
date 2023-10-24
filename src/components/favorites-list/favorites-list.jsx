@@ -1,14 +1,16 @@
 import React from "react";
-import { arrayOf, objectOf } from "prop-types";
-import { adPropTypes } from "../../propTypes/ad.js";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { arrayOf } from "prop-types";
 
 import { AppRoute } from "../../const.js";
-import FavoritePlacesList from "../favourite-places-list/favourite-places-list.jsx";
+import FavoritePlacesList from "../favorite-places-list/favorite-places-list.jsx";
 import { changeCity } from "../../store/action.js";
-function FavoritesList({ adsObj, changeCity }) {
+import { adPropTypes } from "../../propTypes/ad.js";
+import { getAdsByCityObj } from "../../util.js";
+function FavoritesList({ ads }) {
   const dispatch = useDispatch();
+  const adsObj = getAdsByCityObj(ads);
   return (
     <ul className="favorites__list">
       {Object.entries(adsObj).map(([key, value]) => (
@@ -34,7 +36,7 @@ function FavoritesList({ adsObj, changeCity }) {
 }
 
 FavoritesList.propTypes = {
-  adsObj: objectOf(arrayOf(adPropTypes)),
+  ads: arrayOf(adPropTypes),
 };
 
 export default FavoritesList;

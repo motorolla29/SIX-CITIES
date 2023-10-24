@@ -4,8 +4,9 @@ import React from "react";
 import { componentVariants, PremiumTagNames } from "./settings.js";
 
 function PremiumTag({ variant = PremiumTagNames.MAIN }) {
+  const { className } = componentVariants[variant];
   return (
-    <div className={componentVariants[variant].className}>
+    <div className={className}>
       <span>Premium</span>
     </div>
   );

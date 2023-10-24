@@ -11,7 +11,7 @@ const adaptAdFormat = (ad) => ({
   rating: ad.rating,
   offerType: ad.type,
   isPremium: ad.is_premium,
-  isFavourite: ad.is_favorite,
+  isFavorite: ad.is_favorite,
   bedroomsAmount: ad.bedrooms,
   capacity: ad.max_adults,
   features: ad.goods,
