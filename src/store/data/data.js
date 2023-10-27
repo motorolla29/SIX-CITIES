@@ -1,9 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
 import {
+  addComment,
   adsAreLoaded,
   fullAdInfoLoaded,
   loadAdComments,
-  loadAdDetails,
   loadAds,
   loadAdsNearby,
   loadFullAdInfo,
@@ -32,9 +32,6 @@ const data = createReducer(initialState, (builder) => {
     .addCase(adsAreLoaded, (state, action) => {
       state.adsAreLoaded = action.payload;
     })
-    .addCase(loadAdDetails, (state, action) => {
-      state.currentAdDetails = action.payload;
-    })
     .addCase(fullAdInfoLoaded, (state, action) => {
       state.fullAdInfoLoaded = action.payload;
     })
@@ -42,6 +39,9 @@ const data = createReducer(initialState, (builder) => {
       state.fullAdInfo = action.payload;
     })
     .addCase(loadAdComments, (state, action) => {
+      state.adComments = action.payload;
+    })
+    .addCase(addComment, (state, action) => {
       state.adComments = action.payload;
     })
     .addCase(loadAdsNearby, (state, action) => {

@@ -8,13 +8,22 @@ import {
   fullAdInfoLoaded,
   redirectTo,
   loadAdsNearby,
-  setCommentIsPosted,
+  setCommentSendStatus,
   setIsFavorite,
   loadAdComments,
+  addComment,
   loadFavoriteAds,
   setFavoriteAdsAreLoaded,
+  setError,
+  setIsCommentPostError,
 } from "../store/action";
-import { APIRoute, AuthorizationStatus } from "../const";
+import {
+  APIRoute,
+  AppRoute,
+  AuthorizationStatus,
+  CommentSendStatus,
+  HttpCode,
+} from "../const";
 import { getIsFavoriteStatusCode } from "../util";
 import adaptAdFormat from "../adapters/ads";
 import adaptCommentFormat from "../adapters/comments";
@@ -38,7 +47,20 @@ const setAuthStatus = () => (dispatch, _getState, api) =>
       dispatch(setAuth(AuthorizationStatus.AUTH));
     })
     .catch((e) => {
-      dispatch(setAuth(AuthorizationStatus.NO_AUTH));
+      const status = e.response.status;
+
+      switch (true) {
+        case status === HttpCode.UNAUTHORIZED:
+          dispatch(setAuth(AuthorizationStatus.NO_AUTH));
+          break;
+
+        case HttpCode.SERVER_ERRORS.includes(status):
+          dispatch(redirectTo(AppRoute.SERVER_ERROR));
+          break;
+
+        default:
+          dispatch(setAuth(AuthorizationStatus.NO_AUTH));
+      }
     });
 
 const login = (userInput) => (dispatch, _getState, api) =>
@@ -68,7 +90,7 @@ const fetchFullAdInfo = (adId) => (dispatch, _getState, api) =>
       dispatch(fullAdInfoLoaded(true));
     })
     .catch((e) => {
-      dispatch(redirectTo(APIRoute.NOT_FOUND));
+      dispatch(redirectTo(AppRoute.NOT_FOUND));
       dispatch(fullAdInfoLoaded(false));
     });
 
@@ -85,13 +107,15 @@ const fetchAdsNearby = (adId) => (dispatch, _getState, api) => {
 
 const postComment = (userComment, adId) => (dispatch, _getState, api) => {
   api
-    .post(`${APIRoute.COMMENTS}/${adId}`, userComment)
+    .post(`${APIRoute.COMMENTS}/${adId}/12222222`, userComment)
     .then(({ data }) => {
-      dispatch(setCommentIsPosted(true));
-      dispatch(loadAdComments(data.map(adaptCommentFormat)));
+      dispatch(setCommentSendStatus(CommentSendStatus.OK));
+      dispatch(addComment(data.map(adaptCommentFormat)));
     })
     .catch((e) => {
-      dispatch(setCommentIsPosted(true));
+      dispatch(setIsCommentPostError(true));
+      dispatch(setCommentSendStatus(CommentSendStatus.DEFAULT));
+      dispatch(setError(e.message));
     });
 };
 const fetchFavoriteAds = () => (dispatch, _getState, api) => {
@@ -110,7 +134,7 @@ const setIsFavoriteAd = (hotelId, isFavorite) => (dispatch, _getState, api) => {
       dispatch(setIsFavorite(hotelId, isFavorite));
     })
     .catch((e) => {
-      dispatch(redirectTo(APIRoute.LOGIN));
+      dispatch(redirectTo(AppRoute.LOGIN));
     });
 };
 

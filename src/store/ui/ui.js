@@ -1,12 +1,20 @@
 import { createReducer } from "@reduxjs/toolkit";
 
-import { changeCity, changeFocusedAdId, changeSortingType } from "../action";
+import {
+  changeCity,
+  changeFocusedAdId,
+  changeSortingType,
+  setIsCommentPostError,
+  setError,
+} from "../action";
 import { DEFAULT_CITY, DEFAULT_SORTING_TYPE } from "../../const";
 
 const initialState = {
   activeCity: DEFAULT_CITY,
   adSortingType: DEFAULT_SORTING_TYPE,
   focusedAdId: null,
+  error: "",
+  isCommentPostError: false,
 };
 
 const ui = createReducer(initialState, (builder) => {
@@ -19,6 +27,12 @@ const ui = createReducer(initialState, (builder) => {
     })
     .addCase(changeSortingType, (state, action) => {
       state.adSortingType = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
+    .addCase(setIsCommentPostError, (state, action) => {
+      state.isCommentPostError = action.payload;
     });
 });
 

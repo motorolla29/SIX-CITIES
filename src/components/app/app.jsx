@@ -12,6 +12,7 @@ import FavoritesPage from "../pages/favorites-page/favorites-page.jsx";
 import NotFoundPage from "../pages/not-found-page/not-found-page.jsx";
 import OfferPage from "../pages/offer-page/offer-page.jsx";
 import LoadWrapper from "../load-wrapper/load-wrapper.jsx";
+import ServerErrorPage from "../pages/server-error-page/server-error-page.jsx";
 
 function App() {
   const authStatus = useSelector(getAuthorizationStatus);
@@ -52,6 +53,10 @@ function App() {
           path={`${AppRoute.OFFER}/:id`}
           render={({ match }) => <OfferPage adId={match.params.id} />}
         />
+
+        <Route path={AppRoute.SERVER_ERROR} exact>
+          <ServerErrorPage />
+        </Route>
 
         <Route>
           <NotFoundPage />

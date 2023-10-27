@@ -1,6 +1,6 @@
-const convertRatingToStars = (rating) => {
+const convertRatingToStars = (rating, isRound = true) => {
   const RATING_MULTIPLIER = 20;
-  return `${rating * RATING_MULTIPLIER}%`;
+  return `${(isRound ? Math.round(rating) : rating) * RATING_MULTIPLIER}%`;
 };
 
 const getSettingsVariantNames = (variants) =>
