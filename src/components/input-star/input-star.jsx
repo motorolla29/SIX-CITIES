@@ -12,6 +12,7 @@ function InputStar({ data, onInput }) {
         id={`${data.ratingInt}-stars`}
         type="radio"
         required
+        data-testid="input-star"
       />
       <label
         htmlFor={`${data.ratingInt}-stars`}

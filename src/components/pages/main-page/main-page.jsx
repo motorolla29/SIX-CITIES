@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { arrayOf, bool, func, number, string } from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
 import { MapCitySetting, TABS_CITIES } from "../../../const";

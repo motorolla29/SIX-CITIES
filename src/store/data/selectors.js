@@ -17,9 +17,10 @@ const getLimitedAdsNearby = createSelector(getAdsNearby, (ads) =>
   ads.slice(0, MAX_ADS_NEARBY)
 );
 
-const getLimitedSortedComments = createSelector(getAdComments, (comments) =>
-  sortByDate(comments).slice(-MAX_REVIEWS_IN_AD)
-);
+const getLimitedSortedComments = createSelector(getAdComments, (comments) => ({
+  totalReviewsAmount: comments.length,
+  trimmedReviews: sortByDate(comments.slice(-MAX_REVIEWS_IN_AD)),
+}));
 
 export {
   getAds,

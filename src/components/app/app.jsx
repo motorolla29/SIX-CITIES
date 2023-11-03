@@ -1,11 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Router, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import { AppRoute, AuthorizationStatus } from "../../const.js";
 import { getAuthorizationStatus } from "../../store/user/selectors.js";
-import browserHistory from "../../services/browser-history.js";
-import withPrivateRoute from "../../hoc/withPrivateRoute.jsx";
+import withPrivateRoute from "../../hoc/with-private-route.jsx";
 import MainPage from "../pages/main-page/main-page";
 import LoginPage from "../pages/login-page/login-page.jsx";
 import FavoritesPage from "../pages/favorites-page/favorites-page.jsx";
@@ -30,39 +29,37 @@ function App() {
   );
 
   return (
-    <Router history={browserHistory}>
-      <Switch>
-        <Route path={AppRoute.ROOT} exact>
-          <MainPage />
-        </Route>
+    <Switch>
+      <Route path={AppRoute.ROOT} exact>
+        <MainPage />
+      </Route>
 
-        <Route path={AppRoute.LOGIN} exact>
-          <LoadWrapper isLoad={isAuthKnown}>
-            <LoginPagePrivate />
-          </LoadWrapper>
-        </Route>
+      <Route path={AppRoute.LOGIN} exact>
+        <LoadWrapper isLoad={isAuthKnown}>
+          <LoginPagePrivate />
+        </LoadWrapper>
+      </Route>
 
-        <Route path={AppRoute.FAVORITES} exact>
-          <LoadWrapper isLoad={isAuthKnown}>
-            <FavoritesPagePrivate />
-          </LoadWrapper>
-        </Route>
+      <Route path={AppRoute.FAVORITES} exact>
+        <LoadWrapper isLoad={isAuthKnown}>
+          <FavoritesPagePrivate />
+        </LoadWrapper>
+      </Route>
 
-        <Route
-          exact
-          path={`${AppRoute.OFFER}/:id`}
-          render={({ match }) => <OfferPage adId={match.params.id} />}
-        />
+      <Route
+        exact
+        path={`${AppRoute.OFFER}/:id`}
+        render={({ match }) => <OfferPage adId={match.params.id} />}
+      />
 
-        <Route path={AppRoute.SERVER_ERROR} exact>
-          <ServerErrorPage />
-        </Route>
+      <Route path={AppRoute.SERVER_ERROR} exact>
+        <ServerErrorPage />
+      </Route>
 
-        <Route>
-          <NotFoundPage />
-        </Route>
-      </Switch>
-    </Router>
+      <Route>
+        <NotFoundPage />
+      </Route>
+    </Switch>
   );
 }
 

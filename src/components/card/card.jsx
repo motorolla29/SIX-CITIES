@@ -19,6 +19,7 @@ function Card({ data, variant, onMouseEnter, onMouseLeave }) {
       className={`${cardClassNameMod} place-card`}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      data-testid="list-card"
     >
       {isPremium && <PremiumTag />}
       <div className={`${imageWrapperClassNameMod} place-card__image-wrapper`}>

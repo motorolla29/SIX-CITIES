@@ -56,9 +56,12 @@ const logout = createAction(`LOGOUT`, (userData) => ({ payload: userData }));
 const setAuthStatus = createAction(`SET_AUTH_STATUS`, (bool) => ({
   payload: bool,
 }));
-const setCommentSendStatus = createAction(`SET_COMMENT_IS_POSTED`, (bool) => ({
-  payload: bool,
-}));
+const setCommentSendStatus = createAction(
+  `SET_COMMENT_IS_DONE_SENDING`,
+  (bool) => ({
+    payload: bool,
+  })
+);
 const setIsFavorite = createAction(
   `SET_IS_FAVORITE`,
   (hotelId, isFavorite) => ({

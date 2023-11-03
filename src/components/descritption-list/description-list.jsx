@@ -1,10 +1,14 @@
-import React from 'react';
-import { arrayOf, string } from 'prop-types';
+import React from "react";
+import { arrayOf, string } from "prop-types";
 
 function DescriptionList({ descriptions }) {
   return (
     <div className="property__description">
-      {descriptions.map((it) => <p key={it} className="property__text">{it}</p>)}
+      {descriptions.map((it) => (
+        <p key={it} className="property__text">
+          {it}
+        </p>
+      ))}
     </div>
   );
 }

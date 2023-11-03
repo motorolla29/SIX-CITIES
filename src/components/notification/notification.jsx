@@ -9,7 +9,7 @@ function Notification({ message, onTransitionEnd }) {
   useEffect(() => {
     setTimeout(() => setIsHiding(true), NOTIFICATION_HIDE_TIMEOUT);
     return () => onTransitionEnd();
-  }, []);
+  }, [onTransitionEnd]);
 
   return (
     <h3

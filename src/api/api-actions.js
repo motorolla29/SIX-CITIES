@@ -67,7 +67,7 @@ const login = (userInput) => (dispatch, _getState, api) =>
   api
     .post(APIRoute.LOGIN, userInput)
     .then(({ data }) => {
-      localStorage.token = data.token;
+      localStorage.setItem("token", data.token);
       dispatch(userLogin(data));
       dispatch(setAuth(AuthorizationStatus.AUTH));
     })
@@ -99,33 +99,31 @@ const fetchAdComments = (adId) => (dispatch, _getState, api) =>
     dispatch(loadAdComments(data.map(adaptCommentFormat)));
   });
 
-const fetchAdsNearby = (adId) => (dispatch, _getState, api) => {
+const fetchAdsNearby = (adId) => (dispatch, _getState, api) =>
   api.get(`${APIRoute.ADS}/${adId}${APIRoute.ADS_NEARBY}`).then(({ data }) => {
     dispatch(loadAdsNearby(data.map(adaptAdFormat)));
   });
-};
 
-const postComment = (userComment, adId) => (dispatch, _getState, api) => {
+const postComment = (userComment, adId) => (dispatch, _getState, api) =>
   api
-    .post(`${APIRoute.COMMENTS}/${adId}/12222222`, userComment)
+    .post(`${APIRoute.COMMENTS}/${adId}`, userComment)
     .then(({ data }) => {
-      dispatch(setCommentSendStatus(CommentSendStatus.OK));
       dispatch(addComment(data.map(adaptCommentFormat)));
+      dispatch(setCommentSendStatus(CommentSendStatus.OK));
     })
     .catch((e) => {
+      dispatch(setError(e.message));
       dispatch(setIsCommentPostError(true));
       dispatch(setCommentSendStatus(CommentSendStatus.DEFAULT));
-      dispatch(setError(e.message));
     });
-};
-const fetchFavoriteAds = () => (dispatch, _getState, api) => {
-  api.get(`${APIRoute.FAVORITE}`).then(({ data }) => {
+
+const fetchFavoriteAds = () => (dispatch, _getState, api) =>
+  api.get(APIRoute.FAVORITE).then(({ data }) => {
     dispatch(loadFavoriteAds(data.map(adaptAdFormat)));
     dispatch(setFavoriteAdsAreLoaded(true));
   });
-};
 
-const setIsFavoriteAd = (hotelId, isFavorite) => (dispatch, _getState, api) => {
+const setIsFavoriteAd = (hotelId, isFavorite) => (dispatch, _getState, api) =>
   api
     .post(
       `${APIRoute.FAVORITE}/${hotelId}/${getIsFavoriteStatusCode(isFavorite)}`
@@ -136,7 +134,6 @@ const setIsFavoriteAd = (hotelId, isFavorite) => (dispatch, _getState, api) => {
     .catch((e) => {
       dispatch(redirectTo(AppRoute.LOGIN));
     });
-};
 
 export {
   fetchOffers,

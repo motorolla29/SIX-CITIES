@@ -71,6 +71,7 @@ function ReviewForm({ adId }) {
         minLength={CommentFormLength.MIN}
         maxLength={CommentFormLength.MAX}
         required
+        data-testid="review-form-textarea"
       ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -86,6 +87,7 @@ function ReviewForm({ adId }) {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={getIsButtonDisabled()}
+          data-testid="review-submit-btn"
         >
           Submit
         </button>

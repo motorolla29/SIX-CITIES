@@ -14,7 +14,11 @@ function FavoritesList({ ads }) {
   return (
     <ul className="favorites__list">
       {Object.entries(adsObj).map(([key, value]) => (
-        <li key={key} className="favorites__locations-items">
+        <li
+          key={key}
+          className="favorites__locations-items"
+          data-testid="favorites-city-section"
+        >
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <Link
@@ -23,6 +27,7 @@ function FavoritesList({ ads }) {
                   dispatch(changeCity(target.textContent))
                 }
                 to={AppRoute.ROOT}
+                data-testid="city-link"
               >
                 <span>{key}</span>
               </Link>

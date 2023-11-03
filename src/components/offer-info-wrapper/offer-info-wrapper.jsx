@@ -1,5 +1,5 @@
 import React from "react";
-import { arrayOf, bool, string } from "prop-types";
+import { arrayOf, bool, number, shape, string } from "prop-types";
 
 import { convertRatingToStars, getPluralNoun } from "../../util.js";
 import { PremiumTagNames } from "../premium-tag/settings.js";
@@ -115,10 +115,12 @@ function OfferInfoWrapper({ info, reviews, adsNearby, adId, isAuth }) {
               {!!reviews.length && (
                 <h2 className="reviews__title">
                   Reviews &middot;{" "}
-                  <span className="reviews__amount">{reviews.length}</span>
+                  <span className="reviews__amount">
+                    {reviews.totalReviewsAmount}
+                  </span>
                 </h2>
               )}
-              <ReviewsList reviews={reviews} />
+              <ReviewsList reviews={reviews.trimmedReviews} />
               {isAuth && <ReviewForm adId={adId} />}
             </section>
           </div>
@@ -144,7 +146,10 @@ function OfferInfoWrapper({ info, reviews, adsNearby, adId, isAuth }) {
 }
 
 OfferInfoWrapper.propTypes = {
-  reviews: arrayOf(reviewPropTypes),
+  reviews: shape({
+    totalReviewsAmount: number,
+    trimmedReviews: arrayOf(reviewPropTypes),
+  }),
   adsNearby: arrayOf(adPropTypes),
   info: adPropTypes,
   isAuth: bool.isRequired,
